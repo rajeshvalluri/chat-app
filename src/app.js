@@ -5,7 +5,7 @@ const http = require('http')
 const socketio = require('socket.io')
 const Filter = require('bad-words')
 const {generateMessage}  = require('../src/utils/generateMessage')
-const {addUser,removeUser,getUser,getUsersInRoom} = require('../src/utils/users')
+const {addUser,removeUser,getUser,getUsersInRoom,getRooms} = require('../src/utils/users')
 
 const app = express()
 const server = http.createServer(app)
@@ -66,6 +66,11 @@ io.on('connection', (socket) => {
             users: getUsersInRoom(user.room)
 
         })
+        io.emit('roomList', {
+            rooms: getRooms()
+        })
+        // console.log(getRooms())
+        // console.log(getUsersInRoom('sydney'))
         callback()
     })
 

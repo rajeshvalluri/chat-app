@@ -2,7 +2,7 @@
 // addUSer, removeUser, getUser, getUsersInRoom
 
 const users = []
-
+const rooms = []
 const addUser = ({id, username, room}) => {
     username = username.trim().toLowerCase()
     room = room.trim().toLowerCase()
@@ -14,13 +14,25 @@ const addUser = ({id, username, room}) => {
 
     //check for existing user
     // returns a boolean if a user is present in a given room already
+    // Changing the business rule that a user name is only unique to a room
+    // In stead I am enforcing a username to be unique across lounge so that they can switch rooms
     const existingUser = users.find( (user) => {
-        return user.room === room  && user.username === username
+        return user.username === username
+        // return user.room === room  && user.username === username
 
     })
 
     if (existingUser) {
         return { error:'Username is taken'}
+    }
+    //Check if room exists, if it doesn't add room to the rooms array
+    const existingRoom = rooms.find( (rm) => {
+        return rm.roomname === room
+    })
+
+    if(!existingRoom) {
+        const newroom = {'roomname': room}
+        rooms.push(newroom)
     }
     // At this point, username is not present in the room the user is trying to join
     // Go ahead and add the user to the room
@@ -61,9 +73,14 @@ const getUsersInRoom = (room) => {
     return usersInRoom
 }
 
+const getRooms = () => {
+    return rooms
+}
+
 module.exports = {
     addUser,
     removeUser,
     getUser,
-    getUsersInRoom
+    getUsersInRoom,
+    getRooms
 }

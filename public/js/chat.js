@@ -7,11 +7,13 @@ const $messageFormButton = $messageForm.querySelector('button')
 const $sendLocationButton = document.querySelector('#send-location')
 const $messages = document.querySelector('#messages')
 const $roomdata = document.querySelector('#room_data')
+const $roomlist = document.querySelector('#room_list')
 
 //define templates
 const messageTemplate = document.querySelector('#message-template').innerHTML
 const mapsURLTemplate = document.querySelector('#mapsURL-template').innerHTML
 const sidebarTemplate  = document.querySelector('#sidebar-template').innerHTML
+const roomlistTemplate  = document.querySelector('#roomlist-template').innerHTML
 
 //Options
 const {username, room} = Qs.parse(location.search,{ignoreQueryPrefix:true})
@@ -68,6 +70,12 @@ socket.on('roomData', ({room,users}) => {
     $roomdata.innerHTML = html
 })
 
+socket.on('roomList', ({rooms}) => {
+    const html = Mustache.render(roomlistTemplate, {
+        'rooms': rooms
+    })
+    $roomlist.innerHTML = html
+})
 // socket.on('countUpdated', (count) => {
 //     console.log('The count has been updated',count)
 // })

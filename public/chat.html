@@ -9,8 +9,8 @@
     <body>
         <a href="/" target="_self">Home</a>
         <div class="chat">
-            <div class="chat__sidebar" id="room_data">
-            </div>
+            <div class="chat__sidebar" id="room_data"></div>
+            <div class="chat__sidebar" id="room_list"></div>
             <div class="chat__main">
                 <b>Chat Application </b><br>
                 <div id="messages" class="chat__messages"></div>
@@ -53,6 +53,16 @@
                         {{/users}}
                     </ul>
                 </p>
+        </script>
+        <script id="roomlist-template" type="text/html">
+            <p>
+               <h3 class="list-title">Rooms</h3>
+               <ul class="users">
+                   {{#rooms}}
+                       <li>{{roomname}}</li>
+                   {{/rooms}}
+               </ul>
+           </p>
         </script>
 
 
