@@ -49,7 +49,7 @@ io.on('connection', (socket) => {
         if (!user) {
             return ({error: 'User not found'})
         }
-        socket.broadcast.emit('locationMessage',generateMessage(user.username,position))
+        io.to(user.room).emit('locationMessage',generateMessage(user.username,position))
         callback('Map URL received')
     })
     socket.on('join',({username,room},callback) => {

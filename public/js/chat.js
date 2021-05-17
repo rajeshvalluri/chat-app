@@ -53,6 +53,7 @@ socket.on('message',(message) => {
 })
 
 socket.on('locationMessage',(location) => {
+    console.log(location)
     const html = Mustache.render(mapsURLTemplate,{
         'username':location.username,
         'location':location.text,
